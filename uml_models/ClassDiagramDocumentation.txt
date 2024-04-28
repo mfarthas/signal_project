@@ -1,0 +1,5 @@
+Alert Generation System provides medical staff with the interface to acknowledge alerts, customize thresholds for different patients, AlertManager uses AlertPriority and DataValidation classes in order to optimize the process by cleaning data and treat more important alerts quicker.
+
+Patient Identification System provide medical staff with the necessary operations to do with the database (storage) of the patient data, inculding possible deletion of records
+
+Data Storage system provides staff with an ability to retrieve records from different sources (TCP, File and WebSocket) which is then parsed and adapted to be included and used in the storage, DataRetrieval also acts as a security measure with authorised access only to the storage
