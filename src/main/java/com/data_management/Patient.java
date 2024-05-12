@@ -52,6 +52,30 @@ public class Patient {
      *         range
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
-        // TODO Implement and test this method
+
+        List<PatientRecord> caughtRecords = new ArrayList<>();
+        for (PatientRecord record : patientRecords) {
+            if (record.getTimestamp() >= startTime && record.getTimestamp() <= endTime) {
+                caughtRecords.add(record);
+            }
+        }
+        return caughtRecords;
+    }
+
+    /**
+     * Retrieves records for this patient based on their record type (label) and
+     * saves them in a list.
+     *
+     * @param label the record type to filter by
+     * @return a list of PatientRecord objects with the specified record type
+     */
+    public List<PatientRecord> dataByLabel(String label) {
+        List<PatientRecord> recordsByLabel = new ArrayList<>();
+        for (PatientRecord record : patientRecords) {
+            if (record.getRecordType().equals(label)) {
+                recordsByLabel.add(record);
+            }
+        }
+        return recordsByLabel;
     }
 }

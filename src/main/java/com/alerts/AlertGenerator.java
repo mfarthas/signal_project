@@ -3,6 +3,8 @@ package com.alerts;
 import com.data_management.DataStorage;
 import com.data_management.Patient;
 
+import java.util.List;
+
 /**
  * The {@code AlertGenerator} class is responsible for monitoring patient data
  * and generating alerts when certain predefined conditions are met. This class
@@ -11,6 +13,8 @@ import com.data_management.Patient;
  */
 public class AlertGenerator {
     private DataStorage dataStorage;
+
+    private final AlertsList[] alerts = {new TrendAlert(), new CriticalThresholdAlert(), new LowSaturationAlert(), new AbnormalHeartRateAlert(), new RapidDropAlert(), new CombinedAlert(), new TriggeredAlert()};
 
     /**
      * Constructs an {@code AlertGenerator} with a specified {@code DataStorage}.
@@ -35,7 +39,15 @@ public class AlertGenerator {
      * @param patient the patient data to evaluate for alert conditions
      */
     public void evaluateData(Patient patient) {
-        // Implementation goes here
+
+        for (AlertsList current : alerts) {
+
+            List<Alert> foundAlerts = current.checkAlerts(patient);
+
+            for (Alert alert : foundAlerts) {
+                triggerAlert(alert);
+            }
+        }
     }
 
     /**
