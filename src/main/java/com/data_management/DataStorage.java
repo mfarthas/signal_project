@@ -16,12 +16,25 @@ public class DataStorage {
     private Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
     private DataReader dataReader;
 
+    private static DataStorage storage;
+
     /**
      * Constructs a new instance of DataStorage, initializing the underlying storage
      * structure.
      */
     public DataStorage() {
         this.patientMap = new HashMap<>();
+    }
+
+    public void clear() {
+        patientMap.clear();
+    }
+
+    public static DataStorage getInstance() {
+        if (storage == null) {
+            storage = new DataStorage();
+        }
+        return storage;
     }
 
     // Setter for dataReader
@@ -91,7 +104,7 @@ public class DataStorage {
     public static void main(String[] args) {
         // DataReader is not defined in this scope, should be initialized appropriately.
         // DataReader reader = new SomeDataReaderImplementation("path/to/data");
-        DataStorage storage = new DataStorage();
+        DataStorage storage = DataStorage.getInstance();
 
         // Assuming the reader has been properly initialized and can read data into the
         // storage

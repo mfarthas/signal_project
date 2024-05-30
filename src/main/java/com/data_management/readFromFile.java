@@ -3,6 +3,8 @@ package com.data_management;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class readFromFile implements DataReader {
     private final String filePath;
@@ -48,6 +50,25 @@ public class readFromFile implements DataReader {
                 }
             }
         }
+    }
+
+    @Override
+    public void readData(DataStorage dataStorage, String websocketUrl) throws IOException {
+        // Connect to the WebSocket server to handle real-time data
+
+        try {
+            URI url = new URI(websocketUrl);
+            WebSocketClientCode client = new WebSocketClientCode(url, dataStorage);
+            client.connectBlocking();
+
+            if (!client.isConnectionSuccessful()) {
+                throw new IOException("Failed to connect to WebSocket");
+            }
+
+        } catch (URISyntaxException | InterruptedException e) {
+            throw new IOException("Failed to connect to WebSocket", e);
+        }
+
     }
 }
 

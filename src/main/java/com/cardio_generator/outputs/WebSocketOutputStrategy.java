@@ -17,11 +17,19 @@ public class WebSocketOutputStrategy implements OutputStrategy {
 
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
+
+        if (!isValidDataFormat(patientId, timestamp, label, data)) {
+            throw new IllegalArgumentException("Invalid data format. All fields must be non-null and non-empty strings.");
+        }
         String message = String.format("%d,%d,%s,%s", patientId, timestamp, label, data);
         // Broadcast the message to all connected clients
         for (WebSocket conn : server.getConnections()) {
             conn.send(message);
         }
+    }
+
+    private boolean isValidDataFormat(int patientId, long timestamp, String label, String data) {
+        return patientId > 0 && timestamp > 0 && label != null && !label.isEmpty() && data != null && !data.isEmpty();
     }
 
     private static class SimpleWebSocketServer extends WebSocketServer {
@@ -54,5 +62,12 @@ public class WebSocketOutputStrategy implements OutputStrategy {
         public void onStart() {
             System.out.println("Server started successfully");
         }
+    }
+
+    public static void main(String[] args) {
+        int port = 8080;
+        SimpleWebSocketServer server = new SimpleWebSocketServer(new InetSocketAddress(port));
+        server.start();
+        System.out.println("WebSocket server started on port " + port);
     }
 }

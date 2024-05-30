@@ -11,4 +11,9 @@ public class MockDataReader implements DataReader {
         dataStorage.addPatientData(1, 200.0, "WhiteBloodCells", 1714376789051L);
 
     }
+
+    @Override
+    public void readData(DataStorage dataStorage, String websocketUrl) throws IOException {
+
+    }
 }
