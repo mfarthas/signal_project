@@ -8,12 +8,6 @@ import java.util.List;
 
 public class IrregularBeatsAlert implements AlertsList {
 
-    /**
-     * Check for Irregular Beat Alerts.
-     *
-     * @param patient The patient whose records need to be checked for Irregular Beat Alerts.
-     * @return A list of Alert objects describing the Irregular Beat Alerts if triggered, otherwise an empty list.
-     */
     @Override
     public List<Alert> checkAlerts(Patient patient) {
         List<Alert> alerts = new ArrayList<>();

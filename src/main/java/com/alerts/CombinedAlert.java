@@ -6,14 +6,10 @@ import com.data_management.PatientRecord;
 import java.util.List;
 import java.util.ArrayList;
 
-public class CombinedAlert implements AlertsList{
+public class CombinedAlert implements AlertsList {
 
-    /**
-     * Check for Hypotensive Hypoxemia Alerts.
-     *
-     * @param patient The patient whose records need to be checked for Hypotensive Hypoxemia Alerts.
-     * @return A list of Alert objects describing the Hypotensive Hypoxemia Alerts if triggered, otherwise an empty list.
-     */
+    private static final long TIME_WINDOW_MS = 1000;
+
     @Override
     public List<Alert> checkAlerts(Patient patient) {
 
@@ -24,12 +20,13 @@ public class CombinedAlert implements AlertsList{
 
         for (PatientRecord pressureRecord : bloodPressureRecords) {
             for (PatientRecord saturationRecord : saturationRecords) {
-                if (pressureRecord.getMeasurementValue() < 90 && saturationRecord.getMeasurementValue() < 92) {
-                    alerts.add(new Alert(Integer.toString(pressureRecord.getPatientId()), "Hypotensive Hypoxemia", pressureRecord.getTimestamp()));
+                if (Math.abs(pressureRecord.getTimestamp() - saturationRecord.getTimestamp()) <= TIME_WINDOW_MS) {
+                    if (pressureRecord.getMeasurementValue() < 90 && saturationRecord.getMeasurementValue() < 92) {
+                        alerts.add(new Alert(Integer.toString(pressureRecord.getPatientId()), "Hypotensive Hypoxemia", pressureRecord.getTimestamp()));
+                    }
                 }
             }
         }
         return alerts;
     }
-
 }
