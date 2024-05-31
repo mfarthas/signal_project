@@ -66,13 +66,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## UML models
 
-[https://github.com/mfarthas/signal_project/tree/master/uml_models]
+[UML Models]((https://github.com/mfarthas/signal_project/tree/master/uml_models))
 
 ## Week 6 How to run WebSocketClientCodeTest guide
 
-1. Locate WebSocketOutputStrategy in com/cardio_generator/outputs
+1. Locate WebSocketOutputStrategy in com/cardio_generator/outputs [*click*](src/main/java/com/cardio_generator/outputs/fileOutputStrategy.java)
 2. Run the WebSocketOutputStrategy to start the server
-3. Locate WebSocketClientCodeTest in test/data_management
+3. Locate WebSocketClientCodeTest in test/data_management [*another click*](src/test/java/data_management/WebSocketClientCodeTest.java)
 4. Run the WebSocketClientCodeTest
 
 ## Member
