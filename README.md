@@ -66,7 +66,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## UML models
 
-[UML Models]((https://github.com/mfarthas/signal_project/tree/master/uml_models))
+[UML Models](uml_models)
 
 ## Week 6 How to run WebSocketClientCodeTest guide
 
