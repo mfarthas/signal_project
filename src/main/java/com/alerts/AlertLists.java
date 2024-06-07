@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.data_management.Patient;
 
-public interface AlertsList {
+public interface AlertLists {
 
     /**
      * Returns a list of the relevant alerts for the patient

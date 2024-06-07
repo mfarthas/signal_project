@@ -36,11 +36,26 @@ import java.util.ArrayList;
 
 public class HealthDataSimulator {
 
+    private static HealthDataSimulator instance;
     private static int patientCount = 50; // Default number of patients
     private static ScheduledExecutorService scheduler;
     private static OutputStrategy outputStrategy = new ConsoleOutputStrategy(); // Default output strategy
     private static final Random random = new Random();
 
+    // Private constructor to prevent instantiation from outside
+    private HealthDataSimulator() {}
+
+    /**
+     * Get the singleton instance of HealthDataSimulator.
+     *
+     * @return The singleton instance.
+     */
+    public static HealthDataSimulator getInstance() {
+        if (instance == null) {
+            instance = new HealthDataSimulator();
+        }
+        return instance;
+    }
 
     /**
      * The main method that starts the simulation. Parses command-line arguments,

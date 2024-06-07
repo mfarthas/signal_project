@@ -1,12 +1,19 @@
 package com.alerts;
 
+import com.alert_factories.BloodOxygenAlertFactory;
 import com.data_management.Patient;
 import com.data_management.PatientRecord;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LowSaturationAlert implements AlertsList {
+public class LowSaturationAlert implements AlertLists {
+
+    private final BloodOxygenAlertFactory alertFactory;
+
+    public LowSaturationAlert() {
+        this.alertFactory = new BloodOxygenAlertFactory();
+    }
 
     /**
      * Check for low saturation alerts.
@@ -23,7 +30,7 @@ public class LowSaturationAlert implements AlertsList {
 
         for (PatientRecord record : saturationRecords) {
             if (record.getMeasurementValue() < 92) {
-                alerts.add(new Alert(Integer.toString(record.getPatientId()), "Low Saturation", record.getTimestamp()));
+                alerts.add(alertFactory.createAlert(record.getPatientId(), record.getTimestamp()));
             }
         }
         return alerts;

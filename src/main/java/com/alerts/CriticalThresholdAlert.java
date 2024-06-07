@@ -1,12 +1,19 @@
 package com.alerts;
 
+import com.alert_factories.BloodPressureAlertFactory;
 import com.data_management.Patient;
 import com.data_management.PatientRecord;
 
 import java.util.List;
 import java.util.ArrayList;
 
-public class CriticalThresholdAlert implements AlertsList {
+public class CriticalThresholdAlert implements AlertLists {
+
+    private final BloodPressureAlertFactory alertFactory;
+
+    public CriticalThresholdAlert() {
+        this.alertFactory = new BloodPressureAlertFactory();
+    }
 
     /**
      * Check for critical threshold alerts based on systolic and diastolic blood pressure readings.
@@ -24,17 +31,16 @@ public class CriticalThresholdAlert implements AlertsList {
 
         for (PatientRecord systolicRecord : systolicRecords) {
             if (systolicRecord.getMeasurementValue() > 180 || systolicRecord.getMeasurementValue() < 90) {
-                alerts.add(new Alert(Integer.toString(systolicRecord.getPatientId()), "critical threshold alert", systolicRecord.getTimestamp()));
+                alerts.add(alertFactory.createAlert(systolicRecord.getPatientId(), systolicRecord.getTimestamp()));
             }
         }
 
         for (PatientRecord diastolicRecord : diastolicRecords) {
             if (diastolicRecord.getMeasurementValue() > 120 || diastolicRecord.getMeasurementValue() < 60) {
-                alerts.add(new Alert(Integer.toString(diastolicRecord.getPatientId()), "critical threshold alert", diastolicRecord.getTimestamp()));
+                alerts.add(alertFactory.createAlert(diastolicRecord.getPatientId(), diastolicRecord.getTimestamp()));
             }
         }
 
         return alerts;
     }
-
 }

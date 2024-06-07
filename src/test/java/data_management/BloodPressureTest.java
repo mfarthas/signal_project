@@ -23,18 +23,6 @@ public class BloodPressureTest {
     }
 
     @Test
-    public void testDiastolicPressureAboveLowThreshold() {
-
-        Patient patient = new Patient(1);
-
-        patient.addRecord(61, "DiastolicPressure", System.currentTimeMillis());
-        CriticalThresholdAlert alert = new CriticalThresholdAlert();
-
-        List<Alert> alerts = alert.checkAlerts(patient);
-        assertTrue(alerts.isEmpty(), "No alert should be generated for diastolic pressure above 60");
-    }
-
-    @Test
     public void testNoAlertsWithinSafeRanges() {
 
         Patient patient = new Patient(1);

@@ -1,12 +1,19 @@
 package com.alerts;
 
+import com.alert_factories.ECGAlertFactory;
 import com.data_management.Patient;
 import com.data_management.PatientRecord;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IrregularBeatsAlert implements AlertsList {
+public class IrregularBeatsAlert implements AlertLists {
+
+    private final ECGAlertFactory alertFactory;
+
+    public IrregularBeatsAlert() {
+        this.alertFactory = new ECGAlertFactory();
+    }
 
     @Override
     public List<Alert> checkAlerts(Patient patient) {
@@ -20,7 +27,7 @@ public class IrregularBeatsAlert implements AlertsList {
 
             // Check for significant variations in time intervals between consecutive beats
             if (Math.abs(currentRRInterval - previousRRInterval) > 0.1 * previousRRInterval) {
-                alerts.add(new Alert(Integer.toString(ecgRecords.get(i).getPatientId()), "Irregular Beat", ecgRecords.get(i).getTimestamp()));
+                alerts.add(alertFactory.createAlert(ecgRecords.get(i).getPatientId(), ecgRecords.get(i).getTimestamp()));
             }
         }
         return alerts;

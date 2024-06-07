@@ -16,7 +16,7 @@ public class DataStorage {
     private Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
     private DataReader dataReader;
 
-    private static DataStorage storage;
+    private static DataStorage instance;
 
     /**
      * Constructs a new instance of DataStorage, initializing the underlying storage
@@ -31,10 +31,10 @@ public class DataStorage {
     }
 
     public static DataStorage getInstance() {
-        if (storage == null) {
-            storage = new DataStorage();
+        if (instance == null) {
+            instance = new DataStorage();
         }
-        return storage;
+        return instance;
     }
 
     // Setter for dataReader

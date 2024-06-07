@@ -1,12 +1,19 @@
 package com.alerts;
 
+import com.alert_factories.BloodOxygenAlertFactory;
 import com.data_management.Patient;
 import com.data_management.PatientRecord;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RapidDropAlert implements AlertsList {
+public class RapidDropAlert implements AlertLists {
+
+    private final BloodOxygenAlertFactory alertFactory;
+
+    public RapidDropAlert() {
+        this.alertFactory = new BloodOxygenAlertFactory();
+    }
 
     @Override
     public List<Alert> checkAlerts(Patient patient) {
@@ -24,7 +31,7 @@ public class RapidDropAlert implements AlertsList {
             long tenMinutesInMillis = 10 * 60 * 1000; // 10 minutes in milliseconds
 
             if (dropPercentage >= 5 && timeDifference <= tenMinutesInMillis) {
-                alerts.add(new Alert(Integer.toString(currentRecord.getPatientId()), "Rapid Drop", currentRecord.getTimestamp()));
+                alerts.add(alertFactory.createAlert(currentRecord.getPatientId(), currentRecord.getTimestamp()));
             }
         }
         return alerts;

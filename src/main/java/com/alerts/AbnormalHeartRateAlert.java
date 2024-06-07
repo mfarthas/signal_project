@@ -1,12 +1,19 @@
 package com.alerts;
 
+import com.alert_factories.ECGAlertFactory;
 import com.data_management.Patient;
 import com.data_management.PatientRecord;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbnormalHeartRateAlert implements AlertsList{
+public class AbnormalHeartRateAlert implements AlertLists {
+
+    private final ECGAlertFactory alertFactory;
+
+    public AbnormalHeartRateAlert() {
+        this.alertFactory = new ECGAlertFactory();
+    }
 
     /**
      * Check for Abnormal Heart Rate Alerts.
@@ -24,7 +31,7 @@ public class AbnormalHeartRateAlert implements AlertsList{
             double heartRate = calculateHeartRate(record.getMeasurementValue());
 
             if (heartRate < 50 || heartRate > 100) {
-                alerts.add(new Alert(Integer.toString(record.getPatientId()), "Abnormal Heart Rate", record.getTimestamp()));
+                alerts.add(alertFactory.createAlert(record.getPatientId(), record.getTimestamp()));
             }
         }
         return alerts;

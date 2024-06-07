@@ -14,7 +14,7 @@ import java.util.List;
 public class AlertGenerator {
     private DataStorage dataStorage;
 
-    private final AlertsList[] alerts = {new TrendAlert(), new CriticalThresholdAlert(), new LowSaturationAlert(), new AbnormalHeartRateAlert(), new RapidDropAlert(), new CombinedAlert(), new TriggeredAlert()};
+    private final AlertLists[] alerts = {new TrendAlert(), new CriticalThresholdAlert(), new LowSaturationAlert(), new AbnormalHeartRateAlert(), new RapidDropAlert(), new CombinedAlert(), new TriggeredAlert()};
 
     /**
      * Constructs an {@code AlertGenerator} with a specified {@code DataStorage}.
@@ -40,7 +40,7 @@ public class AlertGenerator {
      */
     public void evaluateData(Patient patient) {
 
-        for (AlertsList current : alerts) {
+        for (AlertLists current : alerts) {
 
             List<Alert> foundAlerts = current.checkAlerts(patient);
 
